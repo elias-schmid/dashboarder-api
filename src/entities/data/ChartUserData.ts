@@ -18,4 +18,9 @@ export class ChartUserData {
         type: "timestamp"
     })
     timestamp!: string;
+
+    @Column({
+        nullable: true
+    })
+    type!: string;
 }
