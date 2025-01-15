@@ -30,7 +30,7 @@ router.post("/", async (req, res) => {
                 const dataRecord = new ChartUserData();
 
                 if(type !== undefined) {
-                    dataRecord.type = type;
+                    
                 }
 
                 let parameters: Record<string, any> = {};
@@ -43,12 +43,16 @@ router.post("/", async (req, res) => {
                     }
                 });
 
-                const getValueWithIndex = (index: string) => req.body[mappings.find((mapping) => mapping.internal == index)?.external || index];
+                const getValueWithIndex = (index: string) => req.body[mappings.find((mapping) => mapping.internal == index)?.external || index] || null;
 
-                
+
                 dataRecord.value = getValueWithIndex('value');
-                dataRecord.timestamp = getValueWithIndex('timestamp');
-                dataRecord.chartModule = getValueWithIndex('chartModule');
+
+                dataRecord.timestamp = utils.getISOTimestamp(getValueWithIndex('timestamp'));
+
+                dataRecord.chartModule = chartModule;
+
+                dataRecord.type = getValueWithIndex('type');
 
                 dataRecord.parameters = parameters;
                 
