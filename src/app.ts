@@ -67,19 +67,27 @@ async function initDev() {
     chartModule.lowerBound = "0.0";
     chartModule.upperBound = "5.0";
     chartModule.enabled = true;
-    chartModule.endpoint = "chart-test";
+    chartModule.endpoint = "vscode";
 
     await AppDataSource.getRepository(Module).save(chartModule);
 
-    const mapping = new DataMapping();
-    
-    mapping.internal = "timestamp";
-    mapping.external = "timestomp";
-    if(chartModule !== null) {
-        mapping.module = chartModule;
+    const saveMapping = async (internal: string, external: string, module: Module) => {
+        const mapping = new DataMapping();
+        
+        mapping.internal = internal;
+        mapping.external = external;
+        if(chartModule !== null) {
+            mapping.module = module;
+        }
+        // 
+        await AppDataSource.getRepository(DataMapping).save(mapping);
     }
-    
-    await AppDataSource.getRepository(DataMapping).save(mapping);
+
+    saveMapping('value', 'long', chartModule);
+    saveMapping('timestamp', 'time', chartModule);
+    saveMapping('type', 'pcid', chartModule);
+    saveMapping('proj', 'proj', chartModule);
+
 }
 
 // Initialize the database and start the server

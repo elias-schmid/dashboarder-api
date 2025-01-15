@@ -10,9 +10,6 @@ const router = express.Router();
 // Add a new record
 router.post("/", async (req, res) => {
     try {
-        const { value, timestamp, type } = req.body;
-
-
         const chartModule = await AppDataSource
                 .getRepository(ChartModule)
                 .createQueryBuilder("chartModule")
@@ -28,10 +25,6 @@ router.post("/", async (req, res) => {
                 .filter((column) => !['id', 'parameters'].includes(column));
             utils.getMappings(chartModule).then((mappings) => {
                 const dataRecord = new ChartUserData();
-
-                if(type !== undefined) {
-                    
-                }
 
                 let parameters: Record<string, any> = {};
                 mappings.forEach(mapping => {
