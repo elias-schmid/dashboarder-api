@@ -1,8 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
-import { AbstractModule } from "./AbstractModule"
+import { Column, ChildEntity } from "typeorm";
+import { Module } from "./Module"
 
-@Entity()
-export class ChartModule extends AbstractModule {
+@ChildEntity()
+export class ChartModule extends Module {
     @Column()
     unit!: string;
 

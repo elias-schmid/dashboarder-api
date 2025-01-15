@@ -23,4 +23,7 @@ export class ChartUserData {
         nullable: true
     })
     type!: string;
+
+    @Column({ type: 'jsonb', nullable: true })
+    parameters!: Record<string, any>;
 }

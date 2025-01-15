@@ -3,8 +3,8 @@
     "version": "1.0.0",
     "main": "dist/app.js",
     "scripts": {
-        "start": "node dist/app.js",
-        "dev": "nodemon -e js,mjs,cjs,json,ts --exec 'node --inspect=0.0.0.0:9229 --require ts-node/register src/app.ts'",
+        "start": "NODE_ENV=production node dist/app.js",
+        "dev": "NODE_ENV=development nodemon -e js,mjs,cjs,json,ts --exec 'node --inspect=0.0.0.0:9229 --require ts-node/register src/app.ts'",
         "build": "tsc"
     },
     "dependencies": {
